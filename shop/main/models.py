@@ -38,6 +38,15 @@ class Product(models.Model):
     top = models.BooleanField(default=False)
     description = models.TextField()
 
+    def get_discount_price(self):
+        price = self.price
+        if self.discount:            
+            p = self.discount * self.price // 100
+            price = price - p
+            return price
+        else:
+            return 0
+
     def __str__(self):
         return str(self.name)  
 

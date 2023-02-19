@@ -9,6 +9,7 @@ class HomePageView(View):
     template_name = 'index.html'
 
     def get(self, request, *args, **kwargs):
+        
         popular_products = Product.objects.filter(top=True)
         discount_products = Product.objects.filter(discount__gte=0)
         
@@ -16,6 +17,7 @@ class HomePageView(View):
             "popular_products":popular_products,
             "discount_products":discount_products
         }
+        return render(request, 'index.html', context=data)        
 
 class ShopView(TemplateView):
     template_name = 'shop.html'
@@ -24,4 +26,3 @@ class ShopView(TemplateView):
 class ProductDetailView(DetailView):
     template_name = "shop-single.html"
     model = Product
-       
